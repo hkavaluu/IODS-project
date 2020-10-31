@@ -6,8 +6,9 @@
 ```{r}
 # This is a so-called "R chunk" where you can write R code.
 
-date()
+date("31.10.2020")
+" I am exited about this course!"
+"Link to my GitHub repository
+https://github.com/hkavaluu/IODS-project"
 
 ```
-The text continues here.
-

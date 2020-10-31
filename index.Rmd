@@ -1,5 +1,6 @@
 ---
 title: "IODS course project"
+author: "Henna Kavaluus"
 output:
   html_document:
     theme: cosmo
