@@ -4,11 +4,10 @@
 *Write a short description about the course and add a link to your GitHub repository here. This is an R Markdown (.Rmd) file so you should use R Markdown syntax.*
 
 ```{r}
+
 # This is a so-called "R chunk" where you can write R code.
 
-date("31.10.2020")
-" I am exited about this course!"
-"Link to my GitHub repository
-https://github.com/hkavaluu/IODS-project"
+date()
+#I am excited about this course! Link to my GitHub repository: https://github.com/hkavaluu/IODS-project
 
 ```
