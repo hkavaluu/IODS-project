@@ -2,7 +2,7 @@
 
 *During the Data wrangling exercise I created an analysis dataset for the Analysis exercise. During the Analysis exercise I explored the data, performed analysis and interpreted the results.*
 
-*At first, here is the analysis dataset.*
+*At first, here is the analysis data set.*
 ```{r}
 learning2014<-read.csv('C:/Users/Henna/OneDrive/Asiakirjat/OPEN SCIENCE/IODS-project/data/learning2014.csv')
 learning2014
