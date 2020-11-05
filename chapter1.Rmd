@@ -1,5 +1,5 @@
 
-# About the project
+# About the project.
 
 *Introduction to Open Data Science. The name of this course refers to THREE BIG THEMES: 1) Open Data, 2) Open Science, and 3) Data Science. Link to my GitHub repository: https://github.com/hkavaluu/IODS-project *
 
