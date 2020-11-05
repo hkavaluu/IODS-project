@@ -99,7 +99,7 @@ p4
 
 ```
 
-*Student's attitude versus exam points. Variablles gender, point and attitude are  plotted. Regression model fitted, where exam points is the target variable. These tree variables has correlations between each other. The plot shows a summary of the fitted model. Attitude is greater with males and points are higher when the attitude is greater.*
+*Student's attitude versus exam points. Variables gender, point and attitude are  plotted. Regression model is fitted on data points, and where exam points is the target variable. These tree variables has correlations between each other. The plot shows a summary of the fitted model. Attitude is greater with males and the amount of points increases due the attitude is increasing.*
 ```{r}
 
 # a scatter plot of points versus attitude
@@ -115,9 +115,7 @@ summary(my_model)
 
 ```
 
-*Using a summary of your fitted model, explain the relationship between the chosen explanatory variables and the target variable (interpret the model parameters). Explain and interpret the multiple R squared of the model. (0-3 points)*
-
-*Produce the following diagnostic plots: Residuals vs Fitted values, Normal QQ-plot and Residuals vs Leverage. Explain the assumptions of the model and interpret the validity of those assumptions based on the diagnostic plots. (0-3 points)* 
+*Here is a regression model of relationship between attitude and points. The model is linear regression with positive slope. It means that when the attitude is increasing, also the amount of points is increasing. The magnitude of the slope (regression coefficient) tells the magnitude of the correlation between variables. Since the slope is positive in this model, the variable attitude has positive effect to target variable points.  Explain and interpret the multiple R squared of the model. Valid of the regression model can be estimated by observing how close data points are to the model. More points near by the linear model tells that the model is more accurate. R squared regression model tells how large part of the variability of the target variable can be explained with the other variable. R squared get values between 0 to 1 and can be determined by taking. When R squared is near to one, the model is able to predict the target variables more accurately. In our case the R squared is 0.19, therefore we can come to conclusion that the model can predict the values fairly well*
 
 
 ```{r}
