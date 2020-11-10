@@ -5,8 +5,26 @@
 data<-read.csv('http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/alc.txt ')
 colnames(data)
 ```
-*This data approach student achievement in secondary education of two Portuguese schools. The data attributes include student grades, demographic, social and school related features) and it was collected by using school reports and questionnaires. Two datasets are provided regarding the performance in two distinct subjects: Mathematics (mat) and Portuguese language (por). In [Cortez and Silva, 2008], the two datasets were modeled under binary/five-level classification and regression tasks.*
+*The data set used in this exercise was student achievement in secondary education of two Portuguese schools. The data attributes include student grades, demographic, social and school related features) and it was collected by using school reports and questionnaires. Two datasets are provided regarding the performance in two distinct subjects: Mathematics (mat) and Portuguese language (por). In [Cortez and Silva, 2008], the two datasets were modeled under binary/five-level classification and regression tasks. More about this dataset in  URL: https://archive.ics.uci.edu/ml/datasets/Student+Performance*
+
+*How four different variables have relationship with alcohol consumption? I chose 4 interesting variables from the data to research this more closely: sex, age, health and family size.Variables: sex - student's sex (binary: 'F' - female or 'M' - male), age - student's age (numeric: from 15 to 22), health - current health status (numeric: from 1 - very bad to 5 - very good),famsize - family size (binary: 'LE3' - less or equal to 3 or 'GT3' - greater than 3). I think that sex does have relation to alcohol consumption, because if alcohol is more approved for example in group of men then the consumption can be higher too. Also, the age has strong relation, since it is illegal to use alcohol under certain age, and also younger people might like more partying than older people. I think health has strong relation to alcohol consumption. When health is greater close to 5, the alcohol consumption is lower. I don't think the last variable family size has relation to alcohol consumption.*
+
+*Now I will explore graphically the variables I chose to analyze.*
+
+```{r}
+alc<-data$alc_use
+age<-data$age
+gender<-data$sex
+library(ggplot2)
+
+qplot(sex, alc, data=data, geom="boxplot", fill=sex)
+qplot(age, alc, data=data, aes(group=age), geom="boxplot", fill=age)
+qplot(health, alc, data=data, aes(group=health), geom="boxplot", fill= health)
+qplot(famsize, alc, data=data, geom="boxplot", fill= famsize)
+```
 
 
-#Important note: the target attribute G3 has a strong correlation with attributes G2 and G1. This occurs because G3 is the final year grade (issued at the 3rd period), while G1 and G2 correspond to the 1st and 2nd period grades. It is more difficult to predict G3 without G2 and G1, but such prediction is much more useful (see paper source for more details).
+
+
+
 
