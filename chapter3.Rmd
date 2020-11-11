@@ -1,5 +1,5 @@
 *Exercise 3*
-*There are two data set that need to analyse in this exercise.*
+*There are two data set that was analyzed in this exercise.*
 
 ```{r}
 
@@ -7,9 +7,16 @@ alc<-read.csv('C:/Users/Henna/OneDrive/Asiakirjat/OPEN SCIENCE/IODS-project/data
 
 colnames(alc)
 ```
+
+
 *The data set used in this exercise was student achievement in secondary education of two Portuguese schools. The data attributes include student grades, demographic, social and school related features) and it was collected by using school reports and questionnaires. Two datasets are provided regarding the performance in two distinct subjects: Mathematics (mat) and Portuguese language (por). In [Cortez and Silva, 2008], the two datasets were modeled under binary/five-level classification and regression tasks. More about this dataset in  URL: https://archive.ics.uci.edu/ml/datasets/Student+Performance*
 
 *How four different variables have relationship with alcohol consumption? I chose 4 interesting variables from the data to research this more closely: sex, age, health and family size.Variables: sex - student's sex (binary: 'F' - female or 'M' - male), age - student's age (numeric: from 15 to 22), health - current health status (numeric: from 1 - very bad to 5 - very good),famsize - family size (binary: 'LE3' - less or equal to 3 or 'GT3' - greater than 3). I think that sex does have relation to alcohol consumption, because if alcohol is more approved for example in group of men then the consumption can be higher too. Also, the age has strong relation, since it is illegal to use alcohol under certain age, and also younger people might like more partying than older people. I think health has strong relation to alcohol consumption. When health is greater close to 5, the alcohol consumption is lower. I don't think the last variable family size has relation to alcohol consumption.*
+
+
+
+
+
 
 *Now I will explore graphically the variables I chosen to analyze.*
 
@@ -31,12 +38,58 @@ qplot(age, alc_use, data=alc, aes(group=age), geom="boxplot", fill=age)
 
 qplot(health, alc_use, data=alc, aes(group=health), geom="boxplot", fill= health)
 ```
+
 *The third plot is from relationship between health and alcohol consumption. My hypothesis was that better better heath correlates with lower consumption of alcohol. However, the boxplot does not show any significant correlations in this case,  when the mean value is almost same in every heath state.*
 ```{r}
 qplot(famsize, alc_use, data=alc, geom="boxplot", fill= famsize)
 
 ```
-*The third plot is from relationship between health and alcohol consumption. My hypothesis was that family size does not correlate with consumption of alcohol, and box plot shows it correct. When family size is greater than 3, alcohol consumption mean values is 1.5 and distribution is from 1-4.5. When family size is lower or equal to 3, alcohol consumption mean values is 2 and distribution is from 1-4.5. *
+
+*The fourth plot is from relationship between health and alcohol consumption. My hypothesis was that family size does not correlate with consumption of alcohol, and box plot shows it correct. When family size is greater than 3, alcohol consumption mean values is 1.5 and distribution is from 1-4.5. When family size is lower or equal to 3, alcohol consumption mean values is 2 and distribution is from 1-4.5. *
+
+
+
+
+
+
+
+
+
+*Logistic regression model*
+```{r}
+# find the mode with glm()
+library(magrittr)
+model <- glm(high_use ~ health + age + sex+ famsize, data = alc, family = "binomial")
+summary(model)
+coef(model)
+```
+*The model was build by using the four chosen variables. The developed model models the relationship between high alcohol consumption to our four variables. All variables health, age, sexM and famsize LE3 has positive coefficient. Health has value rounded to 0 and it tells that  it has low correlation to high alcohol consumption. Also age and famsize has only 0.23 and 0.30 values(below 0.5), so does not correlate to high alcohol consumption. Gender(male) 0.84 is greater than 0.5 and it has correlation to high consumption of alcohol.*
+
+
+```{r}
+
+# compute odds ratios (OR)
+OR <- coef(model) %>% exp
+# compute confidence intervals (CI)
+CI <- confint(model) %>% exp
+# print out the odds ratios with their confidence intervals
+cbind(OR, CI)
+
+```
+```{r}
+library(dplyr)
+# predict() the probability of high_use
+probabilities <- predict(model, type = "response")
+# add the predicted probabilities to 'alc'
+alc <- mutate(alc, probability = probabilities)
+# use the probabilities to make a prediction of high_use
+alc <- mutate(alc, prediction = probability > 0.5)
+# tabulate the target variable versus the predictions
+table(high_use = alc$high_use, prediction = alc$prediction)
+```
+
+*Predictive power of the model. 258/363 = 71% of predicted non-high alcohol consumers were predicted correctly, odds to be non-high alcohol consuming is 0.29 if it was predicted. 9/19 = 47% of predicted high alcohol consumers were predicted correctly, odd to be high consumer is 0,89 if it was predicted. 115/382=30% of all individuals was classified individuals. Results show that the prediction model is mostly reliable,especially if predict who is consuming alcohol highly.*
+
 
 
 
