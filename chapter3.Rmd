@@ -1,3 +1,5 @@
+# Logistic regression 
+
 *Exercise 3*
 *There are two data set that was analyzed in this exercise.*
 

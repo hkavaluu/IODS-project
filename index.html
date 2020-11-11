@@ -437,7 +437,8 @@ summary {
 <ul>
 <li><a href="#introduction-to-open-data-science---course-project">Introduction to Open Data Science - Course Project</a></li>
 <li><a href="#about-the-project.">About the project.</a></li>
-<li><a href="#regression-and-model-validation">Regression and model validation</a></li>
+<li><a href="#linear-regression">Linear regression</a></li>
+<li><a href="#logistic-regression">Logistic regression</a></li>
 </ul>
 </div>
 
@@ -449,183 +450,15 @@ summary {
 <h1>About the project.</h1>
 <p><em>Introduction to Open Data Science. The name of this course refers to THREE BIG THEMES: 1) Open Data, 2) Open Science, and 3) Data Science. Link to my GitHub repository: <a href="https://github.com/hkavaluu/IODS-project" class="uri">https://github.com/hkavaluu/IODS-project</a> </em></p>
 <pre class="r"><code>date()</code></pre>
-<pre><code>## [1] &quot;Wed Nov 11 18:59:36 2020&quot;</code></pre>
+<pre><code>## [1] &quot;Wed Nov 11 19:06:26 2020&quot;</code></pre>
 <pre class="r"><code>#I am excited about this course!!! </code></pre>
 <hr />
 </div>
-<div id="regression-and-model-validation" class="section level1">
-<h1>Regression and model validation</h1>
+<div id="linear-regression" class="section level1">
+<h1>Linear regression</h1>
 <p><em>During the Data wrangling exercise I created an analysis dataset for the Analysis exercise. During the Analysis exercise I explored the data, performed analysis and interpreted the results.</em></p>
 <p><em>At first, here is the analysis of the data set.</em></p>
-<pre class="r"><code>learning2014&lt;-read.csv(&#39;C:/Users/Henna/OneDrive/Asiakirjat/OPEN SCIENCE/IODS-project/data/learning2014.csv&#39;)
-learning2014</code></pre>
-<pre><code>##     gender Age attitude     deep  stra     surf Points
-## 1        F  53      3.7 3.583333 3.375 2.583333     25
-## 2        M  55      3.1 2.916667 2.750 3.166667     12
-## 3        F  49      2.5 3.500000 3.625 2.250000     24
-## 4        M  53      3.5 3.500000 3.125 2.250000     10
-## 5        M  49      3.7 3.666667 3.625 2.833333     22
-## 6        F  38      3.8 4.750000 3.625 2.416667     21
-## 7        M  50      3.5 3.833333 2.250 1.916667     21
-## 8        F  37      2.9 3.250000 4.000 2.833333     31
-## 9        M  37      3.8 4.333333 4.250 2.166667     24
-## 10       F  42      2.1 4.000000 3.500 3.000000     26
-## 11       M  37      3.9 3.583333 3.625 2.666667     31
-## 12       F  34      3.8 3.833333 4.750 2.416667     31
-## 13       F  34      2.4 4.250000 3.625 2.250000     23
-## 14       F  34      3.0 3.333333 3.500 2.750000     25
-## 15       M  35      2.6 4.166667 1.750 2.333333     21
-## 16       F  33      4.1 3.666667 3.875 2.333333     31
-## 17       F  32      2.6 4.083333 1.375 2.916667     20
-## 18       F  44      2.6 3.500000 3.250 2.500000     22
-## 19       M  29      1.7 4.083333 3.000 3.750000      9
-## 20       F  30      2.7 4.000000 3.750 2.750000     24
-## 21       M  27      3.9 3.916667 2.625 2.333333     28
-## 22       M  29      3.4 4.000000 2.375 2.416667     30
-## 23       F  31      2.7 4.000000 3.625 3.000000     24
-## 24       F  37      2.3 3.666667 2.750 2.416667      9
-## 25       F  26      3.7 3.666667 1.750 2.833333     26
-## 26       F  26      4.4 4.416667 3.250 3.166667     32
-## 27       M  30      4.1 3.916667 4.000 3.000000     32
-## 28       F  33      3.7 3.750000 3.625 2.000000     33
-## 29       F  33      2.5 3.250000 2.875 3.500000     29
-## 30       M  28      3.0 3.583333 3.000 3.750000     30
-## 31       M  26      3.4 4.916667 1.625 2.500000     19
-## 32       F  27      3.2 3.583333 3.250 2.083333     23
-## 33       F  25      2.0 2.916667 3.500 2.416667     19
-## 34       F  31      2.4 3.666667 3.000 2.583333     12
-## 35       M  20      4.2 4.500000 3.250 1.583333     10
-## 36       F  39      1.6 4.083333 1.875 2.833333     11
-## 37       M  38      3.1 3.833333 4.375 1.833333     20
-## 38       M  24      3.8 3.250000 3.625 2.416667     26
-## 39       M  26      3.8 2.333333 2.500 3.250000     31
-## 40       M  25      3.3 3.333333 1.250 3.416667     20
-## 41       F  30      1.7 4.083333 4.000 3.416667     23
-## 42       F  25      2.5 2.916667 3.000 3.166667     12
-## 43       M  30      3.2 3.333333 2.500 3.500000     24
-## 44       F  48      3.5 3.833333 4.875 2.666667     17
-## 45       F  24      3.2 3.666667 5.000 2.416667     29
-## 46       F  40      4.2 4.666667 4.375 3.583333     23
-## 47       M  25      3.1 3.750000 3.250 2.083333     28
-## 48       F  23      3.9 3.416667 4.000 3.750000     31
-## 49       F  25      1.9 4.166667 3.125 2.916667     23
-## 50       F  23      2.1 2.916667 2.500 2.916667     25
-## 51       M  27      2.5 4.166667 3.125 2.416667     18
-## 52       M  25      3.2 3.583333 3.250 3.000000     19
-## 53       M  23      3.2 2.833333 2.125 3.416667     22
-## 54       F  23      2.6 4.000000 2.750 2.916667     25
-## 55       F  23      2.3 2.916667 2.375 3.250000     21
-## 56       F  45      3.8 3.000000 3.125 3.250000      9
-## 57       F  22      2.8 4.083333 4.000 2.333333     28
-## 58       F  23      3.3 2.916667 4.000 3.250000     25
-## 59       M  21      4.8 3.500000 2.250 2.500000     29
-## 60       M  21      4.0 4.333333 3.250 1.750000     33
-## 61       F  21      4.0 4.250000 3.625 2.250000     33
-## 62       F  21      4.7 3.416667 3.625 2.083333     25
-## 63       F  26      2.3 3.083333 2.500 2.833333     18
-## 64       F  25      3.1 4.583333 1.875 2.833333     22
-## 65       F  26      2.7 3.416667 2.000 2.416667     17
-## 66       M  21      4.1 3.416667 1.875 2.250000     25
-## 67       F  23      3.4 3.416667 4.000 2.833333     28
-## 68       F  22      2.5 3.583333 2.875 2.250000     22
-## 69       F  22      2.1 1.583333 3.875 1.833333     26
-## 70       F  22      1.4 3.333333 2.500 2.916667     11
-## 71       F  23      1.9 4.333333 2.750 2.916667     29
-## 72       M  22      3.7 4.416667 4.500 2.083333     22
-## 73       M  23      3.2 4.833333 3.375 2.333333     21
-## 74       M  24      2.8 3.083333 2.625 2.416667     28
-## 75       F  22      4.1 3.000000 4.125 2.750000     33
-## 76       F  23      2.5 4.083333 2.625 3.250000     16
-## 77       M  22      2.8 4.083333 2.250 1.750000     31
-## 78       M  20      3.8 3.750000 2.750 2.583333     22
-## 79       M  22      3.1 3.083333 3.000 3.333333     31
-## 80       M  21      3.5 4.750000 1.625 2.833333     23
-## 81       F  22      3.6 4.250000 1.875 2.500000     26
-## 82       F  23      2.6 4.166667 3.375 2.416667     12
-## 83       M  21      4.4 4.416667 3.750 2.416667     26
-## 84       M  22      4.5 3.833333 2.125 2.583333     31
-## 85       M  29      3.2 3.333333 2.375 3.000000     19
-## 86       F  29      3.9 3.166667 2.750 2.000000     30
-## 87       F  21      2.5 3.166667 3.125 3.416667     12
-## 88       M  28      3.3 3.833333 3.500 2.833333     17
-## 89       F  21      3.3 4.250000 2.625 2.250000     18
-## 90       F  30      3.0 3.833333 3.375 2.750000     19
-## 91       F  21      2.9 3.666667 2.250 3.916667     21
-## 92       M  23      3.3 3.833333 3.000 2.333333     24
-## 93       F  21      3.3 3.833333 4.000 2.750000     28
-## 94       F  21      3.5 3.833333 3.500 2.750000     17
-## 95       F  20      3.6 3.666667 2.625 2.916667     18
-## 96       M  22      3.7 4.333333 2.500 2.083333     17
-## 97       M  21      4.2 3.750000 3.750 3.666667     23
-## 98       M  21      3.2 4.166667 3.625 2.833333     26
-## 99       F  20      5.0 4.000000 4.125 3.416667     28
-## 100      M  22      4.7 4.000000 4.375 1.583333     31
-## 101      F  20      3.6 4.583333 2.625 2.916667     27
-## 102      F  20      3.6 3.666667 4.000 3.000000     25
-## 103      M  24      2.9 3.666667 2.750 2.916667     23
-## 104      F  20      3.5 3.833333 2.750 2.666667     21
-## 105      F  19      4.0 2.583333 1.375 3.000000     27
-## 106      F  21      3.5 3.500000 2.250 2.750000     28
-## 107      F  21      3.2 3.083333 3.625 3.083333     23
-## 108      F  22      2.6 4.250000 3.750 2.500000     21
-## 109      F  25      2.0 3.166667 4.000 2.333333     25
-## 110      F  21      2.7 3.083333 3.125 3.000000     11
-## 111      F  22      3.2 4.166667 3.250 3.000000     19
-## 112      F  25      3.3 2.250000 2.125 4.000000     24
-## 113      F  20      3.9 3.333333 2.875 3.250000     28
-## 114      M  24      3.3 3.083333 1.500 3.500000     21
-## 115      F  20      3.0 2.750000 2.500 3.500000     24
-## 116      M  21      3.7 3.250000 3.250 3.833333     24
-## 117      F  20      2.5 4.000000 3.625 2.916667     20
-## 118      F  20      2.9 3.583333 3.875 2.166667     19
-## 119      M  31      3.9 4.083333 3.875 1.666667     30
-## 120      F  20      3.6 4.250000 2.375 2.083333     22
-## 121      F  22      2.9 3.416667 3.000 2.833333     16
-## 122      F  22      2.1 3.083333 3.375 3.416667     16
-## 123      M  21      3.1 3.500000 2.750 3.333333     19
-## 124      M  22      4.0 3.666667 4.500 2.583333     30
-## 125      F  21      3.1 4.250000 2.625 2.833333     23
-## 126      F  21      2.3 4.250000 2.750 3.333333     19
-## 127      F  21      2.8 3.833333 3.250 3.000000     18
-## 128      F  21      3.7 4.416667 4.125 2.583333     28
-## 129      F  20      2.6 3.500000 3.375 2.416667     21
-## 130      F  21      2.4 3.583333 2.750 3.583333     19
-## 131      F  25      3.0 3.666667 4.125 2.083333     27
-## 132      M  21      2.8 2.083333 3.250 4.333333     24
-## 133      F  24      2.9 4.250000 2.875 2.666667     21
-## 134      F  20      2.4 3.583333 2.875 3.000000     20
-## 135      M  21      3.1 4.000000 2.375 2.666667     28
-## 136      F  20      1.9 3.333333 3.875 2.166667     12
-## 137      F  20      2.0 3.500000 2.125 2.666667     21
-## 138      F  18      3.8 3.166667 4.000 2.250000     28
-## 139      F  21      3.4 3.583333 3.250 2.666667     31
-## 140      F  19      3.7 3.416667 2.625 3.333333     18
-## 141      F  21      2.9 4.250000 2.750 3.500000     25
-## 142      F  20      2.3 3.250000 4.000 2.750000     19
-## 143      M  21      4.1 4.416667 3.000 2.000000     21
-## 144      F  20      2.7 3.250000 3.375 2.833333     16
-## 145      F  21      3.5 3.916667 3.875 3.500000      7
-## 146      F  20      3.4 3.583333 3.250 2.500000     21
-## 147      F  18      3.2 4.500000 3.375 3.166667     17
-## 148      M  22      3.3 3.583333 4.125 3.083333     22
-## 149      F  22      3.3 3.666667 3.500 2.916667     18
-## 150      M  24      3.5 2.583333 2.000 3.166667     25
-## 151      F  19      3.2 4.166667 3.625 2.500000     24
-## 152      F  20      3.1 3.250000 3.375 3.833333     23
-## 153      F  20      2.8 4.333333 2.125 2.250000     23
-## 154      F  17      1.7 3.916667 4.625 3.416667     26
-## 155      M  19      1.9 2.666667 2.500 3.750000     12
-## 156      F  20      3.5 3.083333 2.875 3.000000     32
-## 157      F  20      2.4 3.750000 2.750 2.583333     22
-## 158      F  20      2.1 4.166667 4.000 3.333333     20
-## 159      F  20      2.9 4.166667 2.375 2.833333     21
-## 160      F  19      1.9 3.250000 3.875 3.000000     23
-## 161      F  19      2.0 4.083333 3.375 2.833333     20
-## 162      F  22      4.2 2.916667 1.750 3.166667     28
-## 163      M  35      4.1 3.833333 3.000 2.750000     31
-## 164      F  18      3.7 3.166667 2.625 3.416667     18
-## 165      F  19      3.6 3.416667 2.625 3.000000     30
-## 166      M  21      1.8 4.083333 3.375 2.666667     19</code></pre>
+<pre class="r"><code>learning2014&lt;-read.csv(&#39;C:/Users/Henna/OneDrive/Asiakirjat/OPEN SCIENCE/IODS-project/data/learning2014.csv&#39;)</code></pre>
 <p><em>The dataset has following dimensions..</em></p>
 <pre class="r"><code>dim(learning2014)</code></pre>
 <pre><code>## [1] 166   7</code></pre>
@@ -730,8 +563,11 @@ summary(my_model)</code></pre>
 ## F-statistic: 38.61 on 1 and 164 DF,  p-value: 4.119e-09</code></pre>
 <p><em>Here is a regression model of relationship between attitude and points. The model is linear regression with positive slope. It means that when the attitude is increasing, also the amount of points is increasing. The magnitude of the slope (regression coefficient) tells the magnitude of the correlation between variables. Since the slope is positive in this model, the variable attitude has positive effect to target variable points. Explain and interpret the multiple R squared of the model. Valid of the regression model can be estimated by observing how close data points are to the model. More points near by the linear model tells that the model is more accurate. R squared regression model tells how large part of the variability of the target variable can be explained with the other variable. R squared get values between 0 to 1 and can be determined by taking. When R squared is near to one, the model is able to predict the target variables more accurately. In our case the R squared is 0.19, therefore we can come to conclusion that the model can predict the values fairly well</em></p>
 <pre class="r"><code>date()</code></pre>
-<pre><code>## [1] &quot;Wed Nov 11 19:00:03 2020&quot;</code></pre>
+<pre><code>## [1] &quot;Wed Nov 11 19:06:53 2020&quot;</code></pre>
 <hr />
+</div>
+<div id="logistic-regression" class="section level1">
+<h1>Logistic regression</h1>
 <p><em>Exercise 3</em> <em>There are two data set that was analyzed in this exercise.</em></p>
 <pre class="r"><code>alc&lt;-read.csv(&#39;C:/Users/Henna/OneDrive/Asiakirjat/OPEN SCIENCE/IODS-project/data/alc.csv&#39;)
 
@@ -832,6 +668,7 @@ table(high_use = alc$high_use, prediction = alc$prediction)</code></pre>
 ##    FALSE   258   10
 ##    TRUE    105    9</code></pre>
 <p><em>Predictive power of the model. 258/363 = 71% of predicted non-high alcohol consumers were predicted correctly, odds to be non-high alcohol consuming is 0.29 if it was predicted. 9/19 = 47% of predicted high alcohol consumers were predicted correctly, odd to be high consumer is 0,89 if it was predicted. 115/382=30% of all individuals was classified individuals. Results show that the prediction model is mostly reliable,especially if predict who is consuming alcohol highly.</em></p>
+<hr />
 </div>
 
 
