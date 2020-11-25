@@ -7,10 +7,35 @@ output: html_document
 ```{r}
 human <- read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human2.txt")
 library(ggplot2)
+library(GGally)
 plot(human)
 summary(human)
 
 ```
 
 
+It is very hard to define distributions of the datasets only by looking at the graphiacal overview. There are correlations between variables that show negative or positive slope in graph for example GNI has high relation to all other variables exept to Parli.F.
+```{r}
+# Access GGally
+library(GGally)
+ggpairs(human)
+
+```
+Ado.Birth and Mat.Mor has high positive correlation 0.759 and they have relation. Life.Exp has great positive relation with GNI, Mat.mor. and Ado.Birth.
+
+
+```{r}
+#PCA on the not standardized human data
+pca_human <- prcomp(human)
+#Draw a biplot displaying the observations by the first two principal components (PC1 coordinate in x-axis, PC2 coordinate in y-axis), along with arrows representing the original variables.
+biplot(pca_human, choices = 1:2, cex = c(0.8, 1), col = c("grey40", "deeppink2"))
+
+```
+```{r}
+# center and standardize variables
+human_scaled <- scale(human)
+pca_human_scaled <- prcomp(human_scaled)
+#Draw a biplot displaying the observations by the first two principal components (PC1 coordinate in x-axis, PC2 coordinate in y-axis), along with arrows representing the original variables.
+biplot(pca_human_scaled, choices = 1:2, cex = c(0.8, 1), col = c("grey40", "deeppink2"))
+```
 
