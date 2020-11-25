@@ -1,0 +1,16 @@
+---
+title: "Dimensionality reduction techniques"
+output: html_document
+---
+
+
+```{r}
+human <- read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human2.txt")
+library(ggplot2)
+plot(human)
+summary(human)
+
+```
+
+
+
