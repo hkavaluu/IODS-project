@@ -4,6 +4,8 @@ output: html_document
 ---
 # Dimensionality reduction techniques
 
+More details about the analysed data set in link: <http://hdr.undp.org/sites/default/files/hdr2015_technical_notes.pdf>
+
 ```{r}
 human <- read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/course_2218/datasets/human2.txt")
 library(ggplot2)
@@ -21,7 +23,7 @@ library(GGally)
 ggpairs(human)
 
 ```
-Ado.Birth and Mat.Mor has high positive correlation 0.759 and they have relation. Life.Exp has great positive relation with GNI, Mat.mor. and Ado.Birth.
+GGplot shows correlations more clearly. Ado.Birth and Mat.Mor has high positive correlation 0.759 and they have relation. Life.Exp has great positive relation with GNI, Mat.mor. and Ado.Birth.
 
 
 ```{r}
@@ -38,4 +40,38 @@ pca_human_scaled <- prcomp(human_scaled)
 #Draw a biplot displaying the observations by the first two principal components (PC1 coordinate in x-axis, PC2 coordinate in y-axis), along with arrows representing the original variables.
 biplot(pca_human_scaled, choices = 1:2, cex = c(0.8, 1), col = c("grey40", "deeppink2"))
 ```
+Non-standardized biplot shows counries over the world, standardized biplot centered on the data part from Africa area. Standardized biplot shows dimension that correlate more with Afcica dataset. We can see how data distributes over these dimensions. In standardized plot Labo.FM and Parli F. can be analyzed in PC1 set and rest of the variables in PC2-axis.
 
+The plots shows that countries where is higher education and equality between gender, there is also lower child mortality, maternal mortality and also better life expectancy. 
+```{r}
+# get all packages available
+
+library(magrittr)
+library(ggplot2)
+library(tidyr)
+library(FactoMineR)
+
+##I had knit problem, so I managed the problem by saving the variable tea into a test file
+
+
+tea<-read.csv('C:/Users/Henna/OneDrive/Asiakirjat/OPEN SCIENCE/IODS-project/data/tea.txt')
+str(tea)
+dim(tea)
+
+# visualize the dataset
+gather(tea) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))
+
+# column names to keep in the dataset
+keep_columns <- c("Tea", "How", "how", "sugar", "where", "lunch")
+
+# select the 'keep_columns' to create a new dataset
+tea_time <- dplyr::select(tea,one_of(keep_columns))
+# multiple correspondence analysis
+mca <- MCA(tea_time, graph = FALSE)
+# summary of the model
+summary(mca)
+# visualize MCA
+plot(mca, invisible=c("ind"), habillage = "quali")
+                                                  
+```
+The results shows how people drink treir tea. For example people who takes green tea, they also  buy tea from chain store. Unpacked teas are buyed from tea shop. People who drink black tea they don't use sugar and don't drink it at lunch. People who use tea bag also uses sugar more often.
