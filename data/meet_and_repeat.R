@@ -66,3 +66,5 @@ ggplot(bprsl, aes(x = week, y = bprs, linetype = subject)) +
   theme(legend.position = "none") + 
   scale_y_continuous(limits = c(min(bprsl$bprs), max(bprsl$bprs)))
 
+write.csv(bprsl, 'C:/Users/Henna/OneDrive/Asiakirjat/OPEN SCIENCE/IODS-project/data/bprs.csv', append = FALSE, quote = TRUE, sep = " ", eol = "\n", na = "NA", dec = ".", row.names = FALSE,col.names = TRUE, qmethod = c("escape", "double"),fileEncoding = "")
+write.csv(ratsl, 'C:/Users/Henna/OneDrive/Asiakirjat/OPEN SCIENCE/IODS-project/data/rats.csv', append = FALSE, quote = TRUE, sep = " ", eol = "\n", na = "NA", dec = ".", row.names = FALSE,col.names = TRUE, qmethod = c("escape", "double"),fileEncoding = "")
