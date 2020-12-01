@@ -1,8 +1,12 @@
 ---
 title: "Analysis of longitudinal data"
 output: html_document
-# Analysis of longitudinal data
+
 ---
+
+# Analysis of longitudinal data
+
+
 ```{r}
 bprs<-read.csv('C:/Users/Henna/OneDrive/Asiakirjat/OPEN SCIENCE/IODS-project/data/bprs.csv')
 rats<-read.csv('C:/Users/Henna/OneDrive/Asiakirjat/OPEN SCIENCE/IODS-project/data/rats.csv')
