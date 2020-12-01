@@ -1,7 +1,7 @@
 #Henna Kavaluus
 #01.12.2020
 # Week 6: Data wrangling
-#Data source: https://raw.githubusercontent.com/KimmoVehkalahti/MABS/master/Examples/data/BPRS.txt
+#Data sources: https://raw.githubusercontent.com/KimmoVehkalahti/MABS/master/Examples/data/BPRS.txt and https://raw.githubusercontent.com/KimmoVehkalahti/MABS/master/Examples/data/rats.txt
 
 # Access the packages dplyr and tidyr
 library(dplyr)
